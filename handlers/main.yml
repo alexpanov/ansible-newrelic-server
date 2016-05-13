@@ -1,0 +1,2 @@
+- name: restart newrelic server monitor daemon
+  service: name=newrelic-sysmond state=restarted enabled=yes

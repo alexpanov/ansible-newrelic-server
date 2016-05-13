@@ -1,0 +1,13 @@
+- name: add newrelic repository
+  apt_repository: repo='deb http://apt.newrelic.com/debian/ newrelic non-free' state=present
+
+- name: add newrelic gpg key
+  apt_key: url=https://download.newrelic.com/548C16BF.gpg state=present
+
+- name: install newrelic server monitoring daemon
+  apt: name=newrelic-sysmond state=latest update_cache=yes
+  notify: restart newrelic server monitor daemon
+
+- name: add newrelic key
+  shell: nrsysmond-config --set license_key="{{ newrelic_server_license_key }}"
+  notify: restart newrelic server monitor daemon
